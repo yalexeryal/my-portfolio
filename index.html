@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Александр Яйлоханов | Python разработчик</title>
+    <title>Александр Яйлоханов | Junior ML Engineer / Data Analyst</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -12,6 +12,7 @@
             --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-secondary: #64748b;
+            --accent-bg: #eff6ff;
         }
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -52,7 +53,7 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             margin-top: 20px;
         }
         .contact-link {
@@ -67,39 +68,64 @@
             align-items: center;
             gap: 6px;
         }
-        .contact-link:hover { background: rgba(255,255,255,0.3); }
+        .contact-link:hover { background: rgba(255,255,255,0.35); }
 
         .content { padding: 30px; }
-        .section { margin-bottom: 30px; }
+        .section { margin-bottom: 35px; }
         .section-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--primary);
             border-bottom: 2px solid #e2e8f0;
             padding-bottom: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-        .item { margin-bottom: 20px; }
-        .item-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; }
-        .item-title { font-weight: 600; font-size: 16px; color: var(--text-main); }
-        .item-date { font-size: 14px; color: var(--text-secondary); font-weight: 500; background: #f1f5f9; padding: 2px 8px; border-radius: 4px; }
-        .item-subtitle { font-size: 15px; color: var(--primary-dark); font-weight: 500; margin: 4px 0; }
-        .item-desc { font-size: 15px; color: var(--text-secondary); margin: 0; }
         
+        /* Experience & Projects Items */
+        .item { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #f1f5f9; }
+        .item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .item-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+        .item-title { font-weight: 700; font-size: 17px; color: var(--text-main); }
+        .item-date { font-size: 14px; color: var(--primary-dark); font-weight: 600; background: var(--accent-bg); padding: 4px 10px; border-radius: 6px; }
+        .item-subtitle { font-size: 15px; color: var(--primary); font-weight: 600; margin: 6px 0; }
+        .item-desc { font-size: 15px; color: var(--text-secondary); margin: 8px 0 0 0; }
+        .item-desc ul { margin: 8px 0; padding-left: 20px; }
+        .item-desc li { margin-bottom: 6px; }
+        .tech-stack { font-size: 13px; color: var(--text-secondary); font-style: italic; margin-top: 8px; }
+
+        /* Skills */
+        .skills-category { margin-bottom: 15px; }
+        .skills-category strong { display: block; font-size: 15px; color: var(--text-main); margin-bottom: 6px; }
         .skills { display: flex; flex-wrap: wrap; gap: 8px; }
         .skill-tag {
-            background: #eff6ff;
-            color: var(--primary);
+            background: var(--accent-bg);
+            color: var(--primary-dark);
             padding: 6px 14px;
             border-radius: 6px;
             font-size: 14px;
             font-weight: 600;
+            border: 1px solid #dbeafe;
         }
+
+        /* Projects specific */
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        .project-link:hover { text-decoration: underline; }
 
         @media (max-width: 600px) {
             .header { padding: 30px 20px; }
             .content { padding: 20px; }
             .item-header { flex-direction: column; gap: 4px; }
+            .contacts { flex-direction: column; align-items: stretch; }
+            .contact-link { justify-content: center; }
         }
     </style>
 </head>
@@ -107,9 +133,10 @@
 
 <div class="container">
     <div class="header">
-        <img src="Яйлоханов.jpg" alt="Александр Яйлоханов" class="avatar" onerror="this.src='https://via.placeholder.com/150?text=Фото'">
+        <!-- Убедитесь, что файл Яйлоханов.jpg лежит в той же папке, что и index.html -->
+        <img src="Яйлоханов.jpg" alt="Александр Яйлоханов" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Александр+Яйлоханов&background=2563eb&color=fff&size=150'">
         <h1>Александр Яйлоханов</h1>
-        <div class="title">Python разработчик / Аналитик данных</div>
+        <div class="title">Junior Machine Learning Engineer / Data Analyst</div>
         
         <div class="contacts">
             <a href="mailto:yalexer@yandex.ru" class="contact-link">📧 yalexer@yandex.ru</a>
@@ -120,59 +147,191 @@
     </div>
 
     <div class="content">
+        <!-- ОБО МНЕ -->
         <div class="section">
             <div class="section-title">Обо мне</div>
             <p class="item-desc">
-                Военный пенсионер с опытом автоматизации рабочих процессов. Создавал базы данных и графические интерфейсы для оптимизации работы. 
-                Прошел профессиональную переподготовку в Нетологии по направлениям Python-разработки и анализа данных. 
-				Обучаюсь по программе «Специалист по искусственному интеллекту»
-				
+                Начинающий ML-инженер и аналитик данных с практическим опытом автоматизации процессов на Python и администрирования PostgreSQL. 
+                В текущей роли разработал скрипты для автоматизации проверки учебных заданий и сбора метрик, сократив время рутинных операций. 
+                В пет-проектах выполнял EDA, кластеризацию клиентов, парсинг веб-данных и NLP-классификацию текстов. 
+                Ищу роль Junior ML Engineer или Data Analyst, где смогу применять Python, SQL и машинное обучение для решения бизнес-задач.
             </p>
         </div>
 
-        
+        <!-- НАВЫКИ -->
         <div class="section">
-            <div class="section-title">Образование</div>
+            <div class="section-title">Ключевые навыки</div>
+            <div class="skills-category">
+                <strong>Языки и БД:</strong>
+                <div class="skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">PostgreSQL</span>
+                    <span class="skill-tag">SQLite</span>
+                </div>
+            </div>
+            <div class="skills-category">
+                <strong>Анализ данных и ML:</strong>
+                <div class="skills">
+                    <span class="skill-tag">Pandas</span>
+                    <span class="skill-tag">NumPy</span>
+                    <span class="skill-tag">Scikit-learn</span>
+                    <span class="skill-tag">Matplotlib / Seaborn</span>
+                    <span class="skill-tag">EDA</span>
+                    <span class="skill-tag">K-Means</span>
+                    <span class="skill-tag">NLP (TF-IDF)</span>
+                </div>
+            </div>
+            <div class="skills-category">
+                <strong>Инструменты:</strong>
+                <div class="skills">
+                    <span class="skill-tag">Git / GitHub</span>
+                    <span class="skill-tag">Linux</span>
+                    <span class="skill-tag">Docker (базово)</span>
+                    <span class="skill-tag">BeautifulSoup</span>
+                    <span class="skill-tag">Telegram Bot API</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ОПЫТ РАБОТЫ -->
+        <div class="section">
+            <div class="section-title">Опыт работы</div>
+            
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">ООО «Нетология»</span>
+                    <span class="item-date">07.2022 – наст. время</span>
+                </div>
+                <div class="item-subtitle">Помощник технического координатора направления «Программирование»</div>
+                <div class="item-desc">
+                    <ul>
+                        <li>Администрирую LMS-платформу и сопровождаю технические процессы обучения.</li>
+                        <li>Разработал Python-скрипты для автоматизации проверки домашних заданий и выгрузки метрик скорости проверки.</li>
+                        <li>Сократил время на рутинные операции и подготовку отчетов за счет скриптовой автоматизации.</li>
+                    </ul>
+                    <div class="tech-stack">Стек: Python, Pandas, SQL, LMS</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Военный комиссариат Ставропольского края</span>
+                    <span class="item-date">07.2017 – 09.2020</span>
+                </div>
+                <div class="item-subtitle">Старший помощник начальника отделения по АСУ</div>
+                <div class="item-desc">
+                    <ul>
+                        <li>Администрировал и оптимизировал базу данных PostgreSQL.</li>
+                        <li>Выполнял миграцию исторических данных, контролировал целостность и корректность переноса информации.</li>
+                        <li>Обеспечивал регулярную и бесперебойную выгрузку данных в вышестоящую базу.</li>
+                    </ul>
+                    <div class="tech-stack">Стек: PostgreSQL, SQL, миграция данных</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Служба в МВД</span>
+                    <span class="item-date">2007 – 2009</span>
+                </div>
+                <div class="item-subtitle">Инженер-электроник</div>
+                <div class="item-desc">
+                    <ul>
+                        <li>Спроектировал и развернул локальную сеть отдела на 50+ рабочих станций.</li>
+                        <li>Администрировал базу данных HyTech для учета документации, обеспечивая сохранность данных.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ПРОЕКТЫ -->
+        <div class="section">
+            <div class="section-title">Проекты (GitHub)</div>
+            
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Аналитика данных о продажах и сегментация клиентов</span>
+                </div>
+                <div class="item-desc">
+                    <ul>
+                        <li>Провел полный цикл EDA датасета продаж: очистка данных, обработка пропусков и поиск аномалий.</li>
+                        <li>Построил визуализации распределений и матрицу корреляций.</li>
+                        <li>Провел сегментацию клиентов с использованием алгоритма K-Means и сформулировал бизнес-рекомендации.</li>
+                    </ul>
+                    <div class="tech-stack">Стек: Python, Pandas, Scikit-learn, K-Means, Matplotlib</div>
+                    <!-- ЗАМЕНИТЕ # НА РЕАЛЬНУЮ ССЫЛКУ НА РЕПОЗИТОРИЙ -->
+                    <a href="https://github.com/yalexeryal" target="_blank" class="project-link">🔗 Посмотреть на GitHub →</a>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Telegram-бот для мониторинга цен</span>
+                </div>
+                <div class="item-desc">
+                    <ul>
+                        <li>Разработал бота для автоматического отслеживания динамики цен на маркетплейсах.</li>
+                        <li>Реализовал парсинг страниц товаров с помощью BeautifulSoup и Requests.</li>
+                        <li>Настроил хранение истории изменений цен в SQLite и отправку уведомлений при снижении цены.</li>
+                    </ul>
+                    <div class="tech-stack">Стек: Python, BeautifulSoup, Requests, SQLite, Telegram Bot API</div>
+                    <a href="https://github.com/yalexeryal" target="_blank" class="project-link">🔗 Посмотреть на GitHub →</a>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Классификация текстов и анализ тональности (NLP)</span>
+                </div>
+                <div class="item-desc">
+                    <ul>
+                        <li>Разработал модель ML для определения тональности текстовых отзывов.</li>
+                        <li>Выполнил предобработку текстов (токенизация, лемматизация) и векторизацию TF-IDF.</li>
+                        <li>Обучил и оценил классификатор Logistic Regression.</li>
+                    </ul>
+                    <div class="tech-stack">Стек: Python, Scikit-learn, NLP, TF-IDF, Logistic Regression</div>
+                    <a href="https://github.com/yalexeryal" target="_blank" class="project-link">🔗 Посмотреть на GitHub →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ОБРАЗОВАНИЕ -->
+        <div class="section">
+            <div class="section-title">Образование и курсы</div>
             <div class="item">
                 <div class="item-header">
                     <span class="item-title">ООО «Нетология»</span>
                     <span class="item-date">2024</span>
                 </div>
-                <div class="item-subtitle">Диплом по профессии «Аналитик данных»</div>
+                <div class="item-subtitle">Диплом о профессиональной переподготовке: «Аналитик данных»</div>
             </div>
             <div class="item">
                 <div class="item-header">
                     <span class="item-title">ООО «Нетология»</span>
                     <span class="item-date">2022</span>
                 </div>
-                <div class="item-subtitle">Диплом о профессиональной переподготовке «Python-разработчик с нуля»</div>
+                <div class="item-subtitle">Диплом о профессиональной переподготовке: «Python-разработчик с нуля»</div>
             </div>
             <div class="item">
                 <div class="item-header">
                     <span class="item-title">ООО «Нетология»</span>
-                    <span class="item-date">Наст. время</span>
+                    <span class="item-date">2024 – наст. время</span>
                 </div>
-                <div class="item-subtitle">Обучение по программе «Специалист по искусственному интеллекту»</div>
+                <div class="item-subtitle">Обучение по программе: «Специалист по искусственному интеллекту»</div>
             </div>
             <div class="item">
                 <div class="item-header">
-                    <span class="item-title">Ставропольский кооперативный техникум экономики, коммерции и права</span>
-                    <span class="item-date">1998</span>
+                    <span class="item-title">Дополнительные сертификаты</span>
                 </div>
-                <div class="item-subtitle">«Правоведение», юрист</div>
+                <div class="skills" style="margin-top: 10px;">
+                    <span class="skill-tag">Аналитика больших данных (Нетология)</span>
+                    <span class="skill-tag">IT-автоматизация с Python (Google/Coursera)</span>
+                    <span class="skill-tag">Django (Нетология)</span>
+                </div>
             </div>
         </div>
 
-        <div class="section">
-            <div class="section-title">Курсы и сертификаты</div>
-            <div class="skills">
-                <span class="skill-tag">Django (Нетология, 2021)</span>
-                <span class="skill-tag">Аналитика больших данных (Нетология, 2021)</span>
-                <span class="skill-tag">IT-автоматизация с помощью Python (Google, 2021)</span>
-                <span class="skill-tag">Using Python to Interact with the OS (Google, 2021)</span>
-                <span class="skill-tag">Stepik курсы</span>
-            </div>
-        </div>
     </div>
 </div>
 
