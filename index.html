@@ -3,337 +3,1042 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Александр Яйлоханов | Junior ML Engineer / Data Analyst</title>
+    <title>Александр Яйлоханов — Python Backend Developer</title>
+    <meta name="description" content="Python Backend Developer. Микросервисы, интеграции, Highload. FastAPI, Celery, Redis, Docker.">
+    <meta name="author" content="Александр Яйлоханов">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-secondary: #64748b;
-            --accent-bg: #eff6ff;
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #1f2937;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-blue: #58a6ff;
+            --accent-purple: #a371f7;
+            --accent-green: #3fb950;
+            --accent-orange: #f0883e;
+            --accent-red: #f85149;
+            --accent-yellow: #d29922;
+            --border: #30363d;
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
+
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Фоновая анимация */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(88, 166, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(163, 113, 247, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .container {
-            max-width: 800px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            overflow: hidden;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
         }
-        .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 40px 30px;
+
+        /* Шапка */
+        header {
+            padding: 80px 0 60px;
             text-align: center;
+            position: relative;
         }
+
         .avatar {
-            width: 150px;
-            height: 150px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            border: 4px solid white;
-            object-fit: cover;
-            background-color: #e2e8f0;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 56px;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 10px 40px rgba(88, 166, 255, 0.3);
+            border: 4px solid var(--bg-secondary);
+            animation: pulse 3s ease-in-out infinite;
         }
-        .header h1 { margin: 0; font-size: 28px; font-weight: 700; }
-        .header .title { font-size: 18px; opacity: 0.9; margin-top: 8px; font-weight: 500; }
-        
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 10px 40px rgba(88, 166, 255, 0.3); }
+            50% { box-shadow: 0 10px 60px rgba(163, 113, 247, 0.5); }
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .title .highlight {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
         .contacts {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 12px;
-            margin-top: 20px;
-        }
-        .contact-link {
-            color: white;
-            text-decoration: none;
-            background: rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .contact-link:hover { background: rgba(255,255,255,0.35); }
-
-        .content { padding: 30px; }
-        .section { margin-bottom: 35px; }
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--primary);
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-        }
-        
-        /* Experience & Projects Items */
-        .item { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #f1f5f9; }
-        .item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .item-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
-        .item-title { font-weight: 700; font-size: 17px; color: var(--text-main); }
-        .item-date { font-size: 14px; color: var(--primary-dark); font-weight: 600; background: var(--accent-bg); padding: 4px 10px; border-radius: 6px; }
-        .item-subtitle { font-size: 15px; color: var(--primary); font-weight: 600; margin: 6px 0; }
-        .item-desc { font-size: 15px; color: var(--text-secondary); margin: 8px 0 0 0; }
-        .item-desc ul { margin: 8px 0; padding-left: 20px; }
-        .item-desc li { margin-bottom: 6px; }
-        .tech-stack { font-size: 13px; color: var(--text-secondary); font-style: italic; margin-top: 8px; }
-
-        /* Skills */
-        .skills-category { margin-bottom: 15px; }
-        .skills-category strong { display: block; font-size: 15px; color: var(--text-main); margin-bottom: 6px; }
-        .skills { display: flex; flex-wrap: wrap; gap: 8px; }
-        .skill-tag {
-            background: var(--accent-bg);
-            color: var(--primary-dark);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            border: 1px solid #dbeafe;
+            margin-top: 24px;
         }
 
-        /* Projects specific */
-        .project-link {
+        .contact-item {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            color: var(--primary);
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 600;
             font-size: 14px;
-            margin-top: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
-        .project-link:hover { text-decoration: underline; }
 
-        @media (max-width: 600px) {
-            .header { padding: 30px 20px; }
-            .content { padding: 20px; }
-            .item-header { flex-direction: column; gap: 4px; }
-            .contacts { flex-direction: column; align-items: stretch; }
-            .contact-link { justify-content: center; }
+        .contact-item:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(88, 166, 255, 0.2);
+        }
+
+        /* Навигация */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 16px 0;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+        }
+
+        /* Секции */
+        section {
+            padding: 60px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::before {
+            content: '';
+            width: 6px;
+            height: 32px;
+            background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 3px;
+        }
+
+        /* Обо мне */
+        .about {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 900px;
+        }
+
+        .about strong {
+            color: var(--text-primary);
+        }
+
+        /* Навыки */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .skill-category h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-blue);
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        .tag.python { color: #3776ab; border-color: #3776ab; }
+        .tag.backend { color: var(--accent-green); border-color: var(--accent-green); }
+        .tag.db { color: var(--accent-orange); border-color: var(--accent-orange); }
+        .tag.data { color: var(--accent-purple); border-color: var(--accent-purple); }
+        .tag.devops { color: var(--accent-yellow); border-color: var(--accent-yellow); }
+
+        /* Опыт работы */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple), transparent);
+        }
+
+        .job {
+            position: relative;
+            margin-bottom: 40px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .job:hover {
+            border-color: var(--accent-blue);
+            box-shadow: var(--card-shadow);
+        }
+
+        .job::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 32px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 2px var(--accent-blue);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .job-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .job-company {
+            font-size: 15px;
+            color: var(--accent-blue);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .job-date {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 4px 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+        }
+
+        .job ul {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+        .job li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .job li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .job-stack {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .job-stack strong {
+            color: var(--accent-orange);
+        }
+
+        /* Проекты */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: block;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-6px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-title::after {
+            content: '↗';
+            font-size: 14px;
+            color: var(--accent-blue);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-title::after {
+            opacity: 1;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .project-section {
+            margin-bottom: 12px;
+        }
+
+        .project-section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .project-section-content {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .project-stack .tag {
+            font-size: 11px;
+            padding: 4px 8px;
+        }
+
+        /* Образование */
+        .education-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .edu-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .edu-item:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .edu-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .edu-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .edu-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--accent-purple);
+            padding: 4px 12px;
+            background: rgba(163, 113, 247, 0.1);
+            border-radius: 6px;
+        }
+
+        /* Курсы */
+        .courses-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .course-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .course-item:hover {
+            border-color: var(--accent-green);
+        }
+
+        .course-info {
+            font-size: 14px;
+        }
+
+        .course-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 { font-size: 32px; }
+            .title { font-size: 16px; }
+            h2 { font-size: 24px; }
+            header { padding: 60px 0 40px; }
+            section { padding: 40px 0; }
+            .avatar { width: 110px; height: 110px; font-size: 44px; }
+            .job-header { flex-direction: column; }
+            .timeline { padding-left: 24px; }
+            .job::before { left: -20px; width: 12px; height: 12px; }
+        }
+
+        /* Скроллбар */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue);
         }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="header">
-        <!-- Убедитесь, что файл Яйлоханов.jpg лежит в той же папке, что и index.html -->
-        <img src="Яйлоханов.jpg" alt="Александр Яйлоханов" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Александр+Яйлоханов&background=2563eb&color=fff&size=150'">
-        <h1>Александр Яйлоханов</h1>
-        <div class="title">Junior Machine Learning Engineer / Data Analyst</div>
-        
-        <div class="contacts">
-            <a href="mailto:yalexer@yandex.ru" class="contact-link">📧 yalexer@yandex.ru</a>
-            <a href="tel:+79682605900" class="contact-link">📞 +7 (968) 260-59-00</a>
-            <a href="https://t.me/AleksandrYail" target="_blank" class="contact-link">✈️ Telegram</a>
-            <a href="https://github.com/yalexeryal" target="_blank" class="contact-link">💻 GitHub</a>
-        </div>
+    <div class="container">
+        <!-- Шапка -->
+        <header>
+            <div class="avatar">АЯ</div>
+            <h1>Александр Яйлоханов</h1>
+            <p class="title">
+                <span class="highlight">Python Backend Developer</span> · Микросервисы · Интеграции · Highload
+            </p>
+            <div class="contacts">
+                <a href="mailto:yalexer@yandex.ru" class="contact-item">
+                    ✉️ yalexer@yandex.ru
+                </a>
+                <a href="tel:+79682605900" class="contact-item">
+                    📱 +7 (968) 260-59-00
+                </a>
+                <a href="https://t.me/AleksandrYail" target="_blank" class="contact-item">
+                    💬 @AleksandrYail
+                </a>
+                <a href="https://github.com/yalexeryal" target="_blank" class="contact-item">
+                    💻 GitHub
+                </a>
+                <a href="#" class="contact-item">
+                    📍 Россия · Удалённо
+                </a>
+            </div>
+        </header>
     </div>
 
-    <div class="content">
-        <!-- ОБО МНЕ -->
-        <div class="section">
-            <div class="section-title">Обо мне</div>
-            <p class="item-desc">
-                Начинающий ML-инженер и аналитик данных с практическим опытом автоматизации процессов на Python и администрирования PostgreSQL. 
-                В текущей роли разработал скрипты для автоматизации проверки учебных заданий и сбора метрик, сократив время рутинных операций. 
-                В пет-проектах выполнял EDA, кластеризацию клиентов, парсинг веб-данных и NLP-классификацию текстов. 
-                Ищу роль Junior ML Engineer или Data Analyst, где смогу применять Python, SQL и машинное обучение для решения бизнес-задач.
+    <!-- Навигация -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#about">Обо мне</a></li>
+                <li><a href="#skills">Навыки</a></li>
+                <li><a href="#experience">Опыт</a></li>
+                <li><a href="#projects">Проекты</a></li>
+                <li><a href="#education">Образование</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Обо мне -->
+        <section id="about">
+            <h2>Обо мне</h2>
+            <p class="about">
+                Python-разработчик с опытом построения <strong>асинхронных бэкенд-сервисов</strong>, 
+                <strong>микросервисов</strong> и систем обработки данных. Имею практический опыт работы 
+                с очередями задач (<strong>Celery + Redis</strong>), интеграцией внешних API (Telegram, OpenAI) 
+                и автоматизацией ETL-процессов. Умею проектировать надежные системы, которые работают 
+                под нагрузкой и легко масштабируются. Интересуюсь как инфраструктурными задачами 
+                (отказоустойчивость, очереди, вебхуки), так и высоконагруженными системами 
+                (кэширование, оптимизация RPS, аналитика данных).
+            </p>
+        </section>
+
+        <!-- Навыки -->
+        <section id="skills">
+            <h2>Ключевые навыки</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>🐍 Backend & Микросервисы</h3>
+                    <div class="skill-tags">
+                        <span class="tag python">Python 3.9+</span>
+                        <span class="tag python">Asyncio</span>
+                        <span class="tag python">Aiohttp</span>
+                        <span class="tag backend">FastAPI</span>
+                        <span class="tag backend">Django</span>
+                        <span class="tag backend">Flask</span>
+                        <span class="tag backend">REST API</span>
+                        <span class="tag backend">Вебхуки</span>
+                        <span class="tag backend">JWT</span>
+                        <span class="tag backend">FSM</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>⚡ Очереди и интеграции</h3>
+                    <div class="skill-tags">
+                        <span class="tag devops">Celery</span>
+                        <span class="tag db">Redis</span>
+                        <span class="tag backend">Retry-политики</span>
+                        <span class="tag backend">Telegram Bot API</span>
+                        <span class="tag backend">OpenAI API</span>
+                        <span class="tag backend">Гарантированная доставка</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>🗄️ Базы данных</h3>
+                    <div class="skill-tags">
+                        <span class="tag db">PostgreSQL</span>
+                        <span class="tag db">SQLite</span>
+                        <span class="tag db">SQLAlchemy</span>
+                        <span class="tag db">Миграции</span>
+                        <span class="tag db">Оконные функции</span>
+                        <span class="tag db">Оптимизация запросов</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>📊 Анализ данных и ETL</h3>
+                    <div class="skill-tags">
+                        <span class="tag data">Pandas</span>
+                        <span class="tag data">NumPy</span>
+                        <span class="tag data">Jupyter</span>
+                        <span class="tag data">Агрегация метрик</span>
+                        <span class="tag data">Построение отчетов</span>
+                        <span class="tag data">Matplotlib</span>
+                        <span class="tag data">Seaborn</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>🛠️ Инфраструктура</h3>
+                    <div class="skill-tags">
+                        <span class="tag devops">Docker</span>
+                        <span class="tag devops">docker-compose</span>
+                        <span class="tag devops">Git</span>
+                        <span class="tag devops">GitHub</span>
+                        <span class="tag devops">CI/CD</span>
+                        <span class="tag devops">Linux</span>
+                        <span class="tag devops">Heroku</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>🔧 Дополнительно</h3>
+                    <div class="skill-tags">
+                        <span class="tag">BeautifulSoup</span>
+                        <span class="tag">Requests</span>
+                        <span class="tag">Pydantic</span>
+                        <span class="tag">OOP</span>
+                        <span class="tag">PEP8</span>
+                        <span class="tag">SQL (сложные JOIN)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Опыт работы -->
+        <section id="experience">
+            <h2>Опыт работы</h2>
+            <div class="timeline">
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Помощник технического координатора</div>
+                            <div class="job-company">ООО «Нетология» · Направление «Программирование»</div>
+                        </div>
+                        <div class="job-date">07.2022 — наст. время</div>
+                    </div>
+                    <ul>
+                        <li>Администрирую LMS-платформу и сопровождаю технические процессы обучения для потоков студентов</li>
+                        <li>Разработал и внедрил Python-скрипты для автоматизации проверки домашних заданий и ETL-выгрузки метрик</li>
+                        <li>Сократил время на рутинные операции и подготовку отчетов за счет скриптовой автоматизации</li>
+                        <li>Работаю с массивами данных, проверяю корректность метрик и помогаю координаторам с техническими вопросами</li>
+                    </ul>
+                    <div class="job-stack"><strong>Стек:</strong> Python, Pandas, SQL, LMS, автоматизация</div>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Старший помощник начальника отделения по АСУ</div>
+                            <div class="job-company">Военный комиссариат Ставропольского края</div>
+                        </div>
+                        <div class="job-date">07.2017 — 09.2020</div>
+                    </div>
+                    <ul>
+                        <li>Администрировал и оптимизировал базу данных PostgreSQL, обеспечивая стабильную работу системы</li>
+                        <li>Выполнял миграцию исторических данных, контролировал целостность и корректность переноса информации</li>
+                        <li>Обеспечивал регулярную и бесперебойную выгрузку данных в вышестоящую базу, минимизируя ошибки обмена</li>
+                    </ul>
+                    <div class="job-stack"><strong>Стек:</strong> PostgreSQL, SQL, администрирование БД, миграция данных</div>
+                </div>
+
+                <div class="job">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Инженер-электроник</div>
+                            <div class="job-company">Служба в МВД</div>
+                        </div>
+                        <div class="job-date">2007 — 2009</div>
+                    </div>
+                    <ul>
+                        <li>Спроектировал и развернул локальную сеть отдела на 50+ рабочих станций</li>
+                        <li>Администрировал базу данных HyTech для учета документации, обеспечивая сохранность данных</li>
+                        <li>Настроил канал регулярной выгрузки данных на региональный сервер</li>
+                    </ul>
+                    <div class="job-stack"><strong>Стек:</strong> Сети, БД, администрирование</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Проекты -->
+        <section id="projects">
+            <h2>Проекты</h2>
+            <div class="projects-grid">
+                <a href="https://github.com/yalexeryal/celery-task-heroku" target="_blank" class="project-card">
+                    <div class="project-icon">⚡</div>
+                    <div class="project-title">Асинхронный сервис фоновых задач</div>
+                    <p class="project-desc">
+                        Архитектура выноса «тяжелых» задач из основного потока в фоновый воркер. 
+                        Redis как брокер сообщений, асинхронное взаимодействие с внешними API.
+                    </p>
+                    <div class="project-section">
+                        <div class="project-section-title">Результат</div>
+                        <div class="project-section-content">Неблокирующая обработка запросов, готовность к масштабированию на несколько воркеров</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="tag python">Python</span>
+                        <span class="tag devops">Celery</span>
+                        <span class="tag db">Redis</span>
+                        <span class="tag python">Asyncio</span>
+                        <span class="tag devops">Heroku</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/yalexeryal/openai_bot" target="_blank" class="project-card">
+                    <div class="project-icon">🤖</div>
+                    <div class="project-title">Экосистема Telegram-ботов</div>
+                    <p class="project-desc">
+                        Боты с FSM, вебхуками и интеграцией внешних API (OpenAI, Telegram). 
+                        Обработка долгих запросов без блокировки.
+                    </p>
+                    <div class="project-section">
+                        <div class="project-section-title">Результат</div>
+                        <div class="project-section-content">Стабильная работа под нагрузкой, корректная обработка ошибок внешних API</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="tag python">Python</span>
+                        <span class="tag python">Asyncio</span>
+                        <span class="tag python">Aiohttp</span>
+                        <span class="tag backend">Telegram API</span>
+                        <span class="tag backend">OpenAI API</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/yalexeryal/work_analysis" target="_blank" class="project-card">
+                    <div class="project-icon">📊</div>
+                    <div class="project-title">Модульный ETL-скрипт с аналитикой</div>
+                    <p class="project-desc">
+                        Автоматическая выгрузка и агрегация данных с учетом сложной бизнес-логики 
+                        (SLA, производственные календари). GUI-редактор для менеджеров.
+                    </p>
+                    <div class="project-section">
+                        <div class="project-section-title">Результат</div>
+                        <div class="project-section-content">Инструмент самообслуживания для нетехнических пользователей</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="tag python">Python</span>
+                        <span class="tag data">Pandas</span>
+                        <span class="tag db">SQL</span>
+                        <span class="tag">JSON-конфиги</span>
+                        <span class="tag">GUI</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/yalexeryal/fastapi_template" target="_blank" class="project-card">
+                    <div class="project-icon">🚀</div>
+                    <div class="project-title">FastAPI-шаблон с безопасностью</div>
+                    <p class="project-desc">
+                        Кастомная JWT-аутентификация, CRUD, пагинация, валидация через Pydantic. 
+                        Кэширование через Redis, упаковка в Docker.
+                    </p>
+                    <div class="project-section">
+                        <div class="project-section-title">Результат</div>
+                        <div class="project-section-content">Готовый шаблон для быстрых асинхронных эндпоинтов</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="tag backend">FastAPI</span>
+                        <span class="tag db">SQLAlchemy</span>
+                        <span class="tag">Pydantic</span>
+                        <span class="tag backend">JWT</span>
+                        <span class="tag devops">Docker</span>
+                        <span class="tag db">Redis</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/yalexeryal/my_auth_project" target="_blank" class="project-card">
+                    <div class="project-icon">🔐</div>
+                    <div class="project-title">Модуль аутентификации</div>
+                    <p class="project-desc">
+                        Кастомная реализация JWT-токенов, регистрация, авторизация, 
+                        защита эндпоинтов.
+                    </p>
+                    <div class="project-section">
+                        <div class="project-section-title">Результат</div>
+                        <div class="project-section-content">Переиспользуемый модуль безопасности для любых FastAPI-проектов</div>
+                    </div>
+                    <div class="project-stack">
+                        <span class="tag backend">FastAPI</span>
+                        <span class="tag backend">JWT</span>
+                        <span class="tag db">PostgreSQL</span>
+                        <span class="tag">Pydantic</span>
+                    </div>
+                </a>
+
+                <a href="https://github.com/yalexeryal" target="_blank" class="project-card">
+                    <div class="project-icon">💻</div>
+                    <div class="project-title">Все проекты на GitHub</div>
+                    <p class="project-desc">
+                        Полный список репозиториев: Django-проекты, CRUD-приложения, 
+                        парсеры, дипломные работы и учебные материалы.
+                    </p>
+                    <div class="project-stack">
+                        <span class="tag python">Python</span>
+                        <span class="tag backend">Django</span>
+                        <span class="tag db">PostgreSQL</span>
+                        <span class="tag devops">Docker</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Образование -->
+        <section id="education">
+            <h2>Образование</h2>
+            <div class="education-grid">
+                <div class="edu-item">
+                    <div class="edu-info">
+                        <h3>Специалист по искусственному интеллекту</h3>
+                        <p>ООО «Нетология» · в процессе обучения</p>
+                    </div>
+                    <div class="edu-year">2024 — н.в.</div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-info">
+                        <h3>Аналитик данных</h3>
+                        <p>ООО «Нетология» · Диплом о профессиональной переподготовке</p>
+                    </div>
+                    <div class="edu-year">2024</div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-info">
+                        <h3>Python-разработчик с нуля</h3>
+                        <p>ООО «Нетология» · Диплом о профессиональной переподготовке</p>
+                    </div>
+                    <div class="edu-year">2022</div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-info">
+                        <h3>Правоведение</h3>
+                        <p>Ставропольский кооперативный техникум экономики, коммерции и права</p>
+                    </div>
+                    <div class="edu-year">1998</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Курсы -->
+        <section id="courses">
+            <h2>Курсы и сертификаты</h2>
+            <div class="courses-list">
+                <div class="course-item">
+                    <div class="course-info">Аналитика больших данных · ООО «Нетология»</div>
+                    <div class="course-year">2021</div>
+                </div>
+                <div class="course-item">
+                    <div class="course-info">Django: создание функциональных веб-приложений · ООО «Нетология»</div>
+                    <div class="course-year">2021</div>
+                </div>
+                <div class="course-item">
+                    <div class="course-info">ИТ-автоматизация с помощью Python · Google (Coursera)</div>
+                    <div class="course-year">2021</div>
+                </div>
+                <div class="course-item">
+                    <div class="course-info">Курсы на Stepik · stepik.org/users/347214365</div>
+                    <div class="course-year">постоянно</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Александр Яйлоханов · Сделано с ❤️ на чистом HTML/CSS/JS</p>
+            <p style="margin-top: 8px;">
+                <a href="https://github.com/yalexeryal" target="_blank">GitHub</a> · 
+                <a href="https://t.me/AleksandrYail" target="_blank">Telegram</a> · 
+                <a href="mailto:yalexer@yandex.ru">Email</a>
             </p>
         </div>
+    </footer>
 
-        <!-- НАВЫКИ -->
-        <div class="section">
-            <div class="section-title">Ключевые навыки</div>
-            <div class="skills-category">
-                <strong>Языки и БД:</strong>
-                <div class="skills">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">SQL</span>
-                    <span class="skill-tag">PostgreSQL</span>
-                    <span class="skill-tag">SQLite</span>
-                </div>
-            </div>
-            <div class="skills-category">
-                <strong>Анализ данных и ML:</strong>
-                <div class="skills">
-                    <span class="skill-tag">Pandas</span>
-                    <span class="skill-tag">NumPy</span>
-                    <span class="skill-tag">Scikit-learn</span>
-                    <span class="skill-tag">Matplotlib / Seaborn</span>
-                    <span class="skill-tag">EDA</span>
-                    <span class="skill-tag">K-Means</span>
-                    <span class="skill-tag">NLP (TF-IDF)</span>
-                </div>
-            </div>
-            <div class="skills-category">
-                <strong>Инструменты:</strong>
-                <div class="skills">
-                    <span class="skill-tag">Git / GitHub</span>
-                    <span class="skill-tag">Linux</span>
-                    <span class="skill-tag">Docker (базово)</span>
-                    <span class="skill-tag">BeautifulSoup</span>
-                    <span class="skill-tag">Telegram Bot API</span>
-                </div>
-            </div>
-        </div>
+    <script>
+        // Анимация появления секций при скролле
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
 
-        <!-- ОПЫТ РАБОТЫ -->
-        <div class="section">
-            <div class="section-title">Опыт работы</div>
-            
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">ООО «Нетология»</span>
-                    <span class="item-date">07.2022 – наст. время</span>
-                </div>
-                <div class="item-subtitle">Помощник технического координатора направления «Программирование»</div>
-                <div class="item-desc">
-                    <ul>
-                        <li>Администрирую LMS-платформу и сопровождаю технические процессы обучения.</li>
-                        <li>Разработал Python-скрипты для автоматизации проверки домашних заданий и выгрузки метрик скорости проверки.</li>
-                        <li>Сократил время на рутинные операции и подготовку отчетов за счет скриптовой автоматизации.</li>
-                    </ul>
-                    <div class="tech-stack">Стек: Python, Pandas, SQL, LMS</div>
-                </div>
-            </div>
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
 
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Военный комиссариат Ставропольского края</span>
-                    <span class="item-date">07.2017 – 09.2020</span>
-                </div>
-                <div class="item-subtitle">Старший помощник начальника отделения по АСУ</div>
-                <div class="item-desc">
-                    <ul>
-                        <li>Администрировал и оптимизировал базу данных PostgreSQL.</li>
-                        <li>Выполнял миграцию исторических данных, контролировал целостность и корректность переноса информации.</li>
-                        <li>Обеспечивал регулярную и бесперебойную выгрузку данных в вышестоящую базу.</li>
-                    </ul>
-                    <div class="tech-stack">Стек: PostgreSQL, SQL, миграция данных</div>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Служба в МВД</span>
-                    <span class="item-date">2007 – 2009</span>
-                </div>
-                <div class="item-subtitle">Инженер-электроник</div>
-                <div class="item-desc">
-                    <ul>
-                        <li>Спроектировал и развернул локальную сеть отдела на 50+ рабочих станций.</li>
-                        <li>Администрировал базу данных HyTech для учета документации, обеспечивая сохранность данных.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- ПРОЕКТЫ -->
-        <div class="section">
-            <div class="section-title">Проекты (GitHub)</div>
-            
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Аналитика данных о продажах и сегментация клиентов</span>
-                </div>
-                <div class="item-desc">
-                    <ul>
-                        <li>Провел полный цикл EDA датасета продаж: очистка данных, обработка пропусков и поиск аномалий.</li>
-                        <li>Построил визуализации распределений и матрицу корреляций.</li>
-                        <li>Провел сегментацию клиентов с использованием алгоритма K-Means и сформулировал бизнес-рекомендации.</li>
-                    </ul>
-                    <div class="tech-stack">Стек: Python, Pandas, Scikit-learn, K-Means, Matplotlib</div>
-                    <!-- ЗАМЕНИТЕ # НА РЕАЛЬНУЮ ССЫЛКУ НА РЕПОЗИТОРИЙ -->
-                    <a href="https://github.com/yalexeryal" target="_blank" class="project-link">🔗 Посмотреть на GitHub →</a>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Telegram-бот для мониторинга цен</span>
-                </div>
-                <div class="item-desc">
-                    <ul>
-                        <li>Разработал бота для автоматического отслеживания динамики цен на маркетплейсах.</li>
-                        <li>Реализовал парсинг страниц товаров с помощью BeautifulSoup и Requests.</li>
-                        <li>Настроил хранение истории изменений цен в SQLite и отправку уведомлений при снижении цены.</li>
-                    </ul>
-                    <div class="tech-stack">Стек: Python, BeautifulSoup, Requests, SQLite, Telegram Bot API</div>
-                    <a href="https://github.com/yalexeryal" target="_blank" class="project-link">🔗 Посмотреть на GitHub →</a>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Классификация текстов и анализ тональности (NLP)</span>
-                </div>
-                <div class="item-desc">
-                    <ul>
-                        <li>Разработал модель ML для определения тональности текстовых отзывов.</li>
-                        <li>Выполнил предобработку текстов (токенизация, лемматизация) и векторизацию TF-IDF.</li>
-                        <li>Обучил и оценил классификатор Logistic Regression.</li>
-                    </ul>
-                    <div class="tech-stack">Стек: Python, Scikit-learn, NLP, TF-IDF, Logistic Regression</div>
-                    <a href="https://github.com/yalexeryal" target="_blank" class="project-link">🔗 Посмотреть на GitHub →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- ОБРАЗОВАНИЕ -->
-        <div class="section">
-            <div class="section-title">Образование и курсы</div>
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">ООО «Нетология»</span>
-                    <span class="item-date">2024</span>
-                </div>
-                <div class="item-subtitle">Диплом о профессиональной переподготовке: «Аналитик данных»</div>
-            </div>
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">ООО «Нетология»</span>
-                    <span class="item-date">2022</span>
-                </div>
-                <div class="item-subtitle">Диплом о профессиональной переподготовке: «Python-разработчик с нуля»</div>
-            </div>
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">ООО «Нетология»</span>
-                    <span class="item-date">2026 – наст. время</span>
-                </div>
-                <div class="item-subtitle">Обучение по программе: «Специалист по искусственному интеллекту»</div>
-            </div>
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Дополнительные сертификаты</span>
-                </div>
-                <div class="skills" style="margin-top: 10px;">
-                    <span class="skill-tag">Аналитика больших данных (Нетология)</span>
-                    <span class="skill-tag">IT-автоматизация с Python (Google/Coursera)</span>
-                    <span class="skill-tag">Django (Нетология)</span>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
+        // Плавный скролл для навигации
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
